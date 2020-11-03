@@ -16,6 +16,8 @@ const Container = ({
   xxl,
   style,
   component,
+  nogutter,
+  gutterWidth,
   ...otherProps
 }) => (
   <ScreenClassResolver>
@@ -32,7 +34,7 @@ const Container = ({
           xxl,
           screenClass,
           containerWidths: getConfiguration().containerWidths,
-          gutterWidth: getConfiguration().gutterWidth,
+          gutterWidth: nogutter ? 0 : (gutterWidth || getConfiguration().gutterWidth),
           moreStyle: style,
         }),
         ...otherProps,
@@ -92,6 +94,14 @@ Container.propTypes = {
    * Use your own component
    */
   component: PropTypes.elementType,
+  /**
+   * No gutter for this container
+   */
+  nogutter: PropTypes.bool,
+  /**
+   * Custom gutter width for this container
+   */
+  gutterWidth: PropTypes.number,
 };
 
 Container.defaultProps = {
@@ -102,6 +112,8 @@ Container.defaultProps = {
   lg: false,
   xl: false,
   xxl: false,
+  nogutter: false,
+  gutterWidth: null,
   style: {},
   component: Div,
 };
