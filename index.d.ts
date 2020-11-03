@@ -22,6 +22,8 @@ declare module 'react-grid-system' {
 
     type ContainerProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
         fluid?: boolean,
+        nogutter?: boolean
+        gutterWidth?: number
         style?: object,
         component?: (() => string) | string
     } & ScreenClassMap<boolean>;

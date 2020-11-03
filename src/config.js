@@ -1,7 +1,7 @@
 let configuration = {
   breakpoints: [576, 768, 992, 1200, 1600],
   containerWidths: [540, 750, 960, 1140, 1540],
-  gutterWidth: 30,
+  gutterWidth: 32,
   gridColumns: 12,
   defaultScreenClass: 'xxl',
   maxScreenClass: 'xxl',
