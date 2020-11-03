@@ -11,6 +11,8 @@ declare module 'react-grid-system' {
     type Pull = ScreenClassMap<number>;
 
     type ColProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
+        align?: Align,
+        justify?: Justify,
         width?: "auto" | number | string,
         debug?: boolean,
         offset?: Offsets,

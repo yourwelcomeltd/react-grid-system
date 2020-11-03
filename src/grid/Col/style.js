@@ -19,7 +19,24 @@ export default ({
   gutterWidth,
   moreStyle,
   gridColumns,
+  align,
+  justify,
 }) => {
+  // Vertical alignment
+  let alignItems = align;
+  if (align === 'start') alignItems = 'flex-start';
+  if (align === 'end') alignItems = 'flex-end';
+
+  // Horizontal alignment
+  let justifyContent = justify;
+  if (justify === 'start') justifyContent = 'flex-start';
+  if (justify === 'end') justifyContent = 'flex-end';
+  if (justify === 'between') justifyContent = 'space-between';
+  if (justify === 'around') justifyContent = 'space-around';
+  if (justify === 'center') justifyContent = 'center';
+  if (justify === 'initial') justifyContent = 'initial';
+  if (justify === 'inherit') justifyContent = 'inherit';
+
   const styles = {
     boxSizing: 'border-box',
     minHeight: 1,
@@ -28,6 +45,12 @@ export default ({
     paddingRight: gutterWidth / 2,
     width: '100%',
   };
+
+  if (alignItems || justifyContent) {
+    styles.display = 'flex';
+    styles.justifyContent = justifyContent;
+    styles.alignItems = alignItems;
+  }
 
   if (debug) {
     styles.outline = '1px solid silver';

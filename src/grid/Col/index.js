@@ -21,6 +21,8 @@ const Col = ({
   style,
   component,
   width,
+  align,
+  justify,
   ...otherProps
 }) => (
   <ScreenClassResolver>
@@ -45,6 +47,8 @@ const Col = ({
             gutterWidth,
             gridColumns: getConfiguration().gridColumns,
             moreStyle: style,
+            align,
+            justify,
           });
           return createElement(component, { style: theStyle, ...otherProps, children });
         }}
@@ -152,6 +156,22 @@ Col.propTypes = {
    * Use your own component
    */
   component: PropTypes.elementType,
+  /**
+   * Vertical alignment
+   */
+  align: PropTypes.oneOf(['normal', 'start', 'center', 'end', 'stretch']),
+  /**
+   * Horizontal alignment
+   */
+  justify: PropTypes.oneOf([
+    'start',
+    'center',
+    'end',
+    'between',
+    'around',
+    'initial',
+    'inherit',
+  ]),
 };
 
 Col.defaultProps = {
@@ -169,6 +189,8 @@ Col.defaultProps = {
   style: {},
   debug: false,
   component: Div,
+  align: 'normal',
+  justify: 'start',
 };
 
 export default Col;

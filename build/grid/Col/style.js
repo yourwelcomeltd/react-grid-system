@@ -40,7 +40,22 @@ var _default = function _default(_ref) {
       screenClass = _ref.screenClass,
       gutterWidth = _ref.gutterWidth,
       moreStyle = _ref.moreStyle,
-      gridColumns = _ref.gridColumns;
+      gridColumns = _ref.gridColumns,
+      align = _ref.align,
+      justify = _ref.justify;
+  // Vertical alignment
+  var alignItems = align;
+  if (align === 'start') alignItems = 'flex-start';
+  if (align === 'end') alignItems = 'flex-end'; // Horizontal alignment
+
+  var justifyContent = justify;
+  if (justify === 'start') justifyContent = 'flex-start';
+  if (justify === 'end') justifyContent = 'flex-end';
+  if (justify === 'between') justifyContent = 'space-between';
+  if (justify === 'around') justifyContent = 'space-around';
+  if (justify === 'center') justifyContent = 'center';
+  if (justify === 'initial') justifyContent = 'initial';
+  if (justify === 'inherit') justifyContent = 'inherit';
   var styles = {
     boxSizing: 'border-box',
     minHeight: 1,
@@ -49,6 +64,12 @@ var _default = function _default(_ref) {
     paddingRight: gutterWidth / 2,
     width: '100%'
   };
+
+  if (alignItems || justifyContent) {
+    styles.display = 'flex';
+    styles.justifyContent = justifyContent;
+    styles.alignItems = alignItems;
+  }
 
   if (debug) {
     styles.outline = '1px solid silver';

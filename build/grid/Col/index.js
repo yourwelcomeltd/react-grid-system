@@ -52,7 +52,9 @@ var Col = function Col(_ref) {
       style = _ref.style,
       component = _ref.component,
       width = _ref.width,
-      otherProps = _objectWithoutProperties(_ref, ["children", "xs", "sm", "md", "lg", "xl", "xxl", "offset", "pull", "push", "debug", "style", "component", "width"]);
+      align = _ref.align,
+      justify = _ref.justify,
+      otherProps = _objectWithoutProperties(_ref, ["children", "xs", "sm", "md", "lg", "xl", "xxl", "offset", "pull", "push", "debug", "style", "component", "width", "align", "justify"]);
 
   return /*#__PURE__*/_react.default.createElement(_ScreenClassResolver.default, null, function (screenClass) {
     return /*#__PURE__*/_react.default.createElement(_Row.GutterWidthContext.Consumer, null, function (gutterWidth) {
@@ -73,7 +75,9 @@ var Col = function Col(_ref) {
         screenClass: screenClass,
         gutterWidth: gutterWidth,
         gridColumns: (0, _config.getConfiguration)().gridColumns,
-        moreStyle: style
+        moreStyle: style,
+        align: align,
+        justify: justify
       });
       return /*#__PURE__*/(0, _react.createElement)(component, _objectSpread(_objectSpread({
         style: theStyle
@@ -174,7 +178,17 @@ Col.propTypes = {
   /**
    * Use your own component
    */
-  component: _propTypes.default.elementType
+  component: _propTypes.default.elementType,
+
+  /**
+   * Vertical alignment
+   */
+  align: _propTypes.default.oneOf(['normal', 'start', 'center', 'end', 'stretch']),
+
+  /**
+   * Horizontal alignment
+   */
+  justify: _propTypes.default.oneOf(['start', 'center', 'end', 'between', 'around', 'initial', 'inherit'])
 };
 Col.defaultProps = {
   children: null,
@@ -190,7 +204,9 @@ Col.defaultProps = {
   pull: {},
   style: {},
   debug: false,
-  component: _primitives.Div
+  component: _primitives.Div,
+  align: 'normal',
+  justify: 'start'
 };
 var _default = Col;
 exports.default = _default;
