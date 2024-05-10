@@ -3,10 +3,13 @@ declare module 'react-grid-system' {
 
     type Align = 'normal' | 'start' | 'center' | 'end' | 'stretch'
     type Justify = 'start' | 'center' | 'end' | 'between' | 'around' | 'initial' | 'inherit';
-    type ScreenClass = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+    type Direction = 'column' | 'row' | 'column-reverse' | 'row-reverse'
+    type Wrap = 'nowrap' | 'wrap' | 'reverse';
+    type ScreenClass = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'| 'xxxl';
     type ScreenClassMap<T> = Partial<Record<ScreenClass, T>>;
 
     type Offsets = ScreenClassMap<number>;
+    type Orders = ScreenClassMap<number>;
     type Push = ScreenClassMap<number>;
     type Pull = ScreenClassMap<number>;
 
@@ -16,6 +19,7 @@ declare module 'react-grid-system' {
         width?: "auto" | number | string,
         debug?: boolean,
         offset?: Offsets,
+        order?: Orders,
         push?: Push,
         pull?: Pull,
         style?: object,
@@ -33,22 +37,22 @@ declare module 'react-grid-system' {
     type RowProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
         align?: Align,
         justify?: Justify,
+        direction?: Direction,
+        wrap?: Wrap,
         debug?: boolean,
         style?: object,
         nogutter?: boolean,
-        nowrap?: boolean,
         component?: (() => string) | string,
         gutterWidth?: number
     }
 
-    type ClearFixProps = ScreenClassMap<boolean>;
-    type HiddenProps = ScreenClassMap<boolean>;
+    type ClearFixProps = { children: React.ReactNode } & ScreenClassMap<boolean>;
+    type VisibleProps = { children: React.ReactNode } & ScreenClassMap<boolean>;
+    type HiddenProps = { children: React.ReactNode } & ScreenClassMap<boolean>;
 
     type ScreenClassRenderProps = {
-        render?: Function
+        render?: (screenClass: ScreenClass) => Exclude<React.ReactNode, undefined>
     }
-
-    type VisibleProps = ScreenClassMap<boolean>;
 
     type Configuration = {
         breakpoints?: Array<number>,
@@ -66,7 +70,7 @@ declare module 'react-grid-system' {
     }
 
     export function setConfiguration(configuration: Configuration): void
-    export function useScreenClass(elementRef?: React.MutableRefObject<any>): string
+    export function useScreenClass(elementRef?: React.MutableRefObject<any>): ScreenClass
 
     export class Col extends React.Component<ColProps, any> { }
     export class Container extends React.Component<ContainerProps, any> { }

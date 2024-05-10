@@ -1,29 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as style from './style';
-import ScreenClassResolver from '../../context/ScreenClassResolver';
+import React from "react";
+import PropTypes from "prop-types";
+import * as style from "./style";
+import ScreenClassResolver from "../../context/ScreenClassResolver";
 
 const Visible = ({
   children,
-  xs,
-  sm,
-  md,
-  lg,
-  xl,
-  xxl,
+  xs = false,
+  sm = false,
+  md = false,
+  lg = false,
+  xl = false,
+  xxl = false,
+  xxxl = false,
 }) => (
   <ScreenClassResolver>
-    {(screenClass) => (!style.visible({
-      screenClass,
-      xs,
-      sm,
-      md,
-      lg,
-      xl,
-      xxl,
-    })
-      ? null
-      : children)}
+    {(screenClass) =>
+      !style.visible({
+        screenClass,
+        xs,
+        sm,
+        md,
+        lg,
+        xl,
+        xxl,
+        xxxl,
+      })
+        ? null
+        : children
+    }
   </ScreenClassResolver>
 );
 
@@ -56,15 +60,10 @@ Visible.propTypes = {
    * Show on xxlarge devices
    */
   xxl: PropTypes.bool,
-};
-
-Visible.defaultProps = {
-  xs: false,
-  sm: false,
-  md: false,
-  lg: false,
-  xl: false,
-  xxl: false,
+  /**
+   * Show on xxxlarge devices
+   */
+  xxxl: PropTypes.bool,
 };
 
 export default Visible;

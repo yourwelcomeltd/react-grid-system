@@ -1,29 +1,36 @@
-import React, { createElement } from 'react';
-import PropTypes from 'prop-types';
-import getStyle, { getAfterStyle } from './style';
-import { getConfiguration } from '../../config';
-import ScreenClassResolver from '../../context/ScreenClassResolver';
-import { Div, Span } from '../../primitives'
+import React, { createElement } from "react";
+import PropTypes from "prop-types";
+import getStyle from "./style";
+import { getConfiguration } from "../../config";
+import ScreenClassResolver from "../../context/ScreenClassResolver";
+import { Div } from "../../primitives";
 
-const Container = ({
+const Container = React.forwardRef(
+  (
+    {
   children,
-  fluid,
-  xs,
-  sm,
-  md,
-  lg,
-  xl,
-  xxl,
-  style,
-  component,
-  nogutter,
-  gutterWidth,
-  ...otherProps
-}) => (
+      fluid = false,
+      xs = false,
+      sm = false,
+      md = false,
+      lg = false,
+      xl = false,
+      xxl = false,
+      xxxl = false,
+      style = {},
+      component = Div,
+      nogutter = false,
+      gutterWidth = null,
+      ...otherProps
+    },
+    ref
+  ) => (
   <ScreenClassResolver>
-    {(screenClass) => createElement(
+      {(screenClass) =>
+        createElement(
       component,
       {
+            ref,
         style: getStyle({
           fluid,
           xs,
@@ -32,6 +39,7 @@ const Container = ({
           lg,
           xl,
           xxl,
+              xxxl,
           screenClass,
           containerWidths: getConfiguration().containerWidths,
           gutterWidth: nogutter ? 0 : (gutterWidth || getConfiguration().gutterWidth),
@@ -39,12 +47,11 @@ const Container = ({
         }),
         ...otherProps,
       },
-      <>
-        {children}
-        <Span style={getAfterStyle()} />
-      </>,
-    )}
+          children
+        )
+      }
   </ScreenClassResolver>
+  )
 );
 
 Container.propTypes = {
@@ -87,9 +94,16 @@ Container.propTypes = {
    */
   xxl: PropTypes.bool,
   /**
+   * This is in combination with fluid enabled
+   * True makes container fluid only in xxxl, not present means fluid everywhere
+   */
+  xxxl: PropTypes.bool,
+  /**
    * Optional styling
    */
-  style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+  style: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  ),
   /**
    * Use your own component
    */
@@ -104,18 +118,6 @@ Container.propTypes = {
   gutterWidth: PropTypes.number,
 };
 
-Container.defaultProps = {
-  fluid: false,
-  xs: false,
-  sm: false,
-  md: false,
-  lg: false,
-  xl: false,
-  xxl: false,
-  nogutter: false,
-  gutterWidth: null,
-  style: {},
-  component: Div,
-};
+Container.displayName = "Container";
 
 export default Container;
